@@ -11,7 +11,7 @@
 
 # Don't need this when simply compiling assets
 if ENV['SECRET_KEY_BASE'] != 'dummyforcompilation'
-  KEYFILE_NAME = "hidden_service/peacemaker_key#{ENV['INTEGRATION_SPECS'].present? ? "-#{ENV['INTEGRATION_SPECS']}" : ''}"
+  KEYFILE_NAME = "config/peacemaker_key#{ENV['INTEGRATION_SPECS'].present? ? "-#{ENV['INTEGRATION_SPECS']}" : ''}"
 
   if File.exists?(KEYFILE_NAME)
     signing_key = RbNaCl::SigningKey.new File.read(KEYFILE_NAME).b

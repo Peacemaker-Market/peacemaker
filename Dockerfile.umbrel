@@ -20,7 +20,6 @@ tzdata \
 less \
 libffi-dev \
 libsodium-dev \
-tor \
 gcompat \
 libpq-dev \
 && rm -rf /var/cache/apk/* \
@@ -38,9 +37,8 @@ COPY Gemfile.lock $APP_PATH/Gemfile.lock
 RUN bundle install
 
 # copy entrypoint scripts and grant execution permissions
-COPY ./docker-production-entrypoint.sh /usr/local/bin/production-entrypoint.sh
-COPY ./docker-tor-entrypoint.sh /usr/local/bin/docker-tor-entrypoint.sh
-RUN chmod +x /usr/local/bin/production-entrypoint.sh && chmod +x /usr/local/bin/docker-tor-entrypoint.sh
+COPY ./docker-umbrel-entrypoint.sh /usr/local/bin/umbrel-entrypoint.sh
+RUN chmod +x /usr/local/bin/umbrel-entrypoint.sh
 
 COPY  . ./
 
@@ -49,10 +47,7 @@ EXPOSE $RAILS_PORT
 ENV RAILS_SERVE_STATIC_FILES true
 RUN bundle exec rake SECRET_KEY_BASE=dummyforcompilation  assets:precompile
 
-RUN chown -R 1000:1000 ./ && rm -rf ./hidden-service
-
-RUN mkdir $APP_PATH/hidden_service && chmod 700 $APP_PATH/hidden_service && mkdir $APP_PATH/hidden_service/tor-data
-RUN chown -R 1000:1000 $APP_PATH/hidden_service
+RUN chown -R 1000:1000 ./
 
 RUN rm -rf config/master.key
 

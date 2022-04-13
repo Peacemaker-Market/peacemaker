@@ -2,4 +2,4 @@
 #
 # Example:
 #   configatron.file.storage = :s3
-configatron.my_onion = File.read('hidden_service/hostname').to_s.strip rescue nil
+configatron.my_onion = ENV['HIDDEN_SERVICE_ONION'] || File.read('hidden_service/hostname').to_s.strip rescue nil
