@@ -20,8 +20,12 @@ module Peacekeeper
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :sidekiq
 
-    # Support onion hostname
+    # Support local networks
     config.hosts << '127.0.0.1'
+    config.hosts << /192./
+    config.hosts << /10./
+
+    # Support onion hostname
     config.hosts << begin
       File.read('hidden_service/hostname').to_s.strip
     rescue StandardError

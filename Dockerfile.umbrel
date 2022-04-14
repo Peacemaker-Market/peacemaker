@@ -1,8 +1,6 @@
-FROM ruby:2.7.5-alpine@sha256:6f64f2efcb310a80f42605790b0121991f923e10ef4e8a1deaa3f3abcf2c9fd0
+FROM ruby:2.7.6-alpine
 
 ENV APP_PATH /var/app
-ENV BUNDLE_VERSION 2.2.33
-ENV BUNDLE_PATH /usr/local/bundle/gems
 ENV TMP_PATH /tmp/
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_PORT 3000
@@ -25,15 +23,10 @@ libpq-dev \
 && rm -rf /var/cache/apk/* \
 && mkdir -p $APP_PATH 
 
-
-RUN gem install bundler --version "$BUNDLE_VERSION" \
-&& rm -rf $GEM_HOME/cache/*
-
 # navigate to app directory
 WORKDIR $APP_PATH
 
-COPY Gemfile $APP_PATH/Gemfile
-COPY Gemfile.lock $APP_PATH/Gemfile.lock
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 # copy entrypoint scripts and grant execution permissions
@@ -52,5 +45,3 @@ RUN chown -R 1000:1000 ./
 RUN rm -rf config/master.key
 
 USER 1000
-
-ENTRYPOINT [ "bundle", "exec" ]

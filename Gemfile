@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails'
@@ -42,9 +42,6 @@ gem 'tor_requests', github: 'dakhodl/tor_requests'
 # CSS framework
 gem 'tailwindcss-rails'
 
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', require: false
-
 gem 'pg'
 
 # pagination
@@ -76,6 +73,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webmock'
+
+  # Reduces boot times through caching; required in config/boot.rb
+  gem 'bootsnap', require: false
 end
 
 group :test do

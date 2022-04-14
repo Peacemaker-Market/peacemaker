@@ -23,7 +23,7 @@ libsodium-dev \
 tor \
 gcompat \
 libpq-dev \
-&& rm -rf /var/cache/apk/* \
+&& rm -rf /var/caeze/apk/* \
 && mkdir -p $APP_PATH 
 
 
