@@ -5,6 +5,8 @@ class Api::V1::BaseController < ActionController::Base
   before_action :verify_peer_trust_level
   before_action :verify_peer_ownership
 
+  # TODO: verify host is only ENV['P2P_ONION']
+
   #
   # Using https://github.com/RubyCrypto/rbnacl/wiki/Digital-Signatures
   #

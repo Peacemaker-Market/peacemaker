@@ -21,9 +21,8 @@ module Peacekeeper
     config.active_job.queue_adapter = :sidekiq
 
     # Support local networks
-    config.hosts << '127.0.0.1'
-    config.hosts << /192./
-    config.hosts << /10./
+    config.hosts << IPAddr.new("0.0.0.0/0")        # All IPv4 addresses.
+    config.hosts << IPAddr.new("::/0")            # All IPv6 addresses.
 
     # Support onion hostname
     config.hosts << begin
@@ -31,6 +30,8 @@ module Peacekeeper
     rescue StandardError
       'test.onion'
     end
+    config.hosts << ENV['APP_ONION'] if ENV['APP_ONION']
+    config.hosts << ENV['APP_DOMAIN'] if ENV['APP_DOMAIN']
 
     if ENV['INTEGRATION_SPECS']
       config.hosts << "peer_#{ENV['INTEGRATION_SPECS']}"
